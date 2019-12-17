@@ -1,3 +1,4 @@
+#单向链表
 class node(object):
     def __init__(self,data,next=None):
         self.data = data
@@ -41,9 +42,49 @@ class LinkedList(object):
         
     
     def delete_at_index(self,index):
-
+        if self == None or self.index_of(index) == None:
+            raise RuntimeError("failed")
+        current_index = 0;
+        current_node = self.firstNode
         
+        if index == 0:
+            if(self.firstNode.next == None):
+                current_node = self.firstNode
+                self.firstNode = None
+            else:
+                current_node=self.firstNode
+                self.firstNode = self.firstNode.next
+            return current_node
+        while current_index<index:
+            if(current_index+1 == index):
+                if(current_node.next.next.next!=None):
+                    deleteNode = current_node.next
+                    current_node.next = current_node.next.next
+                    return deleteNode
+                else:
+                    deleteNode = current_node.next
+                    current_node.next = None
+                    return deleteNode
+            current_index+=1
+            current_index = current_node.next
+                    
     def delete_by_value(self,value):
+        if(self.index_of(value) == -1):
+            return None
+        current_node = self.firstNode
+        if(self.firstNode.next == None and self.firstNode.data == value):
+            self.firstNode = None
+        while(current_node.next!=None):
+            if(self.firstNode.data == value):
+                self.firstNode = self.firstNode.next
+            else:
+                if(current_node.next.data == value):
+                    if(current_node.next.next!=None):
+                        current_node.next = current_node.next.next
+                    else:
+                        current_node.next = None
+    
+
     
     
 node1 = node("1")
